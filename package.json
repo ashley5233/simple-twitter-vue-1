@@ -39,5 +39,18 @@
     "sass-loader": "^8.0.2",
     "svg-sprite-loader": "^6.0.9",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashley5233/simple-twitter-vue-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashley5233/simple-twitter-vue-1/issues"
+  },
+  "homepage": "https://github.com/ashley5233/simple-twitter-vue-1#readme",
+  "description": ""
 }
