@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
+  <main class="container">
     <Spinner v-if="isLoading" />
     <div v-else class="wrapper">
       <div
         class="cover"
-        @click.stop.prevent="closeModal"
+        @click.stop.prevent="showModal"
         v-show="isShowModal"
       ></div>
       <div class="user-navbar">
@@ -22,11 +22,11 @@
             />
           </svg>
         </div>
-        <div class="user-navbar-info">
+        <nav class="user-navbar-info">
           <Spinner v-if="isLoading" />
           <div class="user-name">{{ User.name }}</div>
           <div class="user-tweets-length">{{ User.tweetsCount }} 推文</div>
-        </div>
+        </nav>
       </div>
 
       <div class="user-profile">
@@ -149,7 +149,7 @@
       <div class="twitter-edit-modal" v-show="isShowModal">
         <form class="modal-container" @submit.stop.prevent="handleSubmit">
           <div class="modal-header">
-            <div class="close-btn" @click.stop.prevent="closeModal">Ｘ</div>
+            <div class="close-btn" @click.stop.prevent="showModal">Ｘ</div>
             <div class="title">編輯個人資料</div>
             <button
               class="save-btn main-btn"
@@ -287,7 +287,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -453,6 +453,7 @@ export default {
         });
         Fire.fire({
           icon: "success",
+          title: "已追蹤用戶",
         });
       } catch (error) {
         Fire.fire({
@@ -489,10 +490,7 @@ export default {
       }
     },
     showModal() {
-      this.isShowModal = true;
-    },
-    closeModal() {
-      this.isShowModal = false;
+      this.isShowModal = !this.isShowModal;
     },
     handleSubmit(e) {
       const form = e.target;
@@ -532,9 +530,9 @@ export default {
     },
     redirectToMessage() {
       const id = this.$route.params.id;
-      this.$socket.emit("createRoom", id)
-      this.$router.push("/chat_private")
-    }
+      this.$socket.emit("createRoom", id);
+      this.$router.push("/chat_private");
+    },
   },
   computed: {
     ...mapState(["currentUser"]),
@@ -547,15 +545,14 @@ export default {
       console.log("socket disconnected");
     },
     createRoom() {
-      console.log("create room")
+      console.log("create room");
     },
     newRoom(id) {
       this.$store.commit("setChatRoomId", id);
-    }
+    },
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 @import "./src/assets/scss/main.scss";
